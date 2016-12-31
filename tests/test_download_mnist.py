@@ -4,7 +4,6 @@ import glob
 import tempfile
 import gzip
 import unittest
-
 sys.path.append('..')
 import pymnist
 

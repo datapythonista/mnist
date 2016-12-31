@@ -4,9 +4,12 @@ import struct
 import tempfile
 import gzip
 import array
+import errno
 import unittest
-from unittest import mock
-
+try:
+    from unittest import mock
+except ImportError:
+    import mock  # py2
 sys.path.append('..')
 import pymnist
 
@@ -27,8 +30,11 @@ class TestMnistLabels(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove(self.sample_fname)
-        except FileNotFoundError:  # not saved when download_mnist_file is mocked
-            pass
+        except OSError as e:  # not saved when download_mnist_file is mocked
+            if e.errno == errno.ENOENT:  # py2 to capture only FileNotFoundError
+                pass
+            else:
+                raise
 
     def test_passing_file_returns_correct_labels(self):
         actual_labels = tuple(pymnist.mnist_labels(self.sample_fname))

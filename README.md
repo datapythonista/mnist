@@ -23,6 +23,8 @@ Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges
 pymnist makes it easier to download and convert to Python objects the information
 contained in the MNIST files, which use a custom format.
 
+It supports Python 2.7 and Python >= 3.5.
+
 To automatically download the train files, and display the first image in the
 dataset, and print the number encoded in the image, you can simply use:
 

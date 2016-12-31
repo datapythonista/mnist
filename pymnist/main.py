@@ -3,7 +3,10 @@ import gzip
 import struct
 import array
 import tempfile
-import urllib.request
+try:
+    from urllib.request import urlretrieve
+except ImportError:
+    from urllib import urlretrieve  # py2
 
 
 BASE_URL = 'http://yann.lecun.com/exdb/mnist/'
@@ -37,7 +40,7 @@ def download_mnist_file(labels=False, test=False):
         fname = 't10k-images-idx3-ubyte.gz' if test else 'train-images-idx3-ubyte.gz'
         
     tmp_fname = tempfile.mktemp(prefix='pymnist_' + fname)
-    urllib.request.urlretrieve(BASE_URL + fname, tmp_fname)
+    urlretrieve(BASE_URL + fname, tmp_fname)
     return tmp_fname
 
 
