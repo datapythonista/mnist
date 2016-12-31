@@ -20,14 +20,14 @@ and images and labels.
 
 Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges
 
-pymnist makes it easier to download and convert to Python objects the
+mnist makes it easier to download and convert to Python objects the
 information contained in the MNIST files, which use a custom format.
 '''
 
-setup(name='pymnist',
+setup(name='mnist',
       description='Python utilities to download and parse the MNIST dataset',
       long_description=LONG_DESCRIPTION,
-      url='https://github.com/datapythonista/pymnist',
+      url='https://github.com/datapythonista/mnist',
       version='0.1',
       author='Marc Garcia',
       author_email='garcia.marc@gmail.com',

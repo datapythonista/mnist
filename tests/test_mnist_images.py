@@ -11,7 +11,7 @@ try:
 except ImportError:
     import mock  # py2
 sys.path.append('..')
-import pymnist
+import mnist
 
 
 SAMPLE_MAGIC_NUMBER = (0x08 << 8) + 0x01
@@ -33,7 +33,7 @@ class TestMnistImages(unittest.TestCase):
     types, and make the right calls."""
 
     def setUp(self):
-        self.sample_fname = tempfile.mktemp(prefix='test_pymnist_')
+        self.sample_fname = tempfile.mktemp(prefix='test_mnist_')
         with gzip.open(self.sample_fname, 'wb') as f:
             f.write(SAMPLE_DATA)
 
@@ -47,68 +47,68 @@ class TestMnistImages(unittest.TestCase):
                 raise
 
     def test_passing_file_returns_correct_pixels(self):
-        actual_labels = tuple(pymnist.mnist_images(self.sample_fname)[0].flatten())
+        actual_labels = tuple(mnist.mnist_images(self.sample_fname)[0].flatten())
         self.assertEqual(actual_labels, SAMPLE_PIXELS)
 
     def test_returns_numpy_array_by_default(self):
         import numpy as np
-        actual_pixels, rows, cols = pymnist.mnist_images(self.sample_fname)
+        actual_pixels, rows, cols = mnist.mnist_images(self.sample_fname)
         self.assertIsInstance(actual_pixels, np.ndarray)
 
     def test_numpy_array_has_correct_rows(self):
         import numpy as np
-        actual_num_rows = pymnist.mnist_images(self.sample_fname)[0].shape[0]
+        actual_num_rows = mnist.mnist_images(self.sample_fname)[0].shape[0]
         self.assertEqual(actual_num_rows, SAMPLE_NUM_IMAGES)
 
     def test_numpy_array_has_correct_cols(self):
         import numpy as np
-        actual_num_cols = pymnist.mnist_images(self.sample_fname)[0].shape[1]
+        actual_num_cols = mnist.mnist_images(self.sample_fname)[0].shape[1]
         self.assertEqual(actual_num_cols, SAMPLE_IMAGE_ROWS * SAMPLE_IMAGE_COLS)
 
     def test_returns_python_array(self):
-        actual_pixels, rows, cols = pymnist.mnist_images(self.sample_fname,
+        actual_pixels, rows, cols = mnist.mnist_images(self.sample_fname,
                                                          use_numpy=False)
         self.assertIsInstance(actual_pixels, array.array)
 
     def test_returned_python_array_has_correct_pixels(self):
-        actual_pixels, rows, cols = pymnist.mnist_images(self.sample_fname,
+        actual_pixels, rows, cols = mnist.mnist_images(self.sample_fname,
                                                          use_numpy=False)
         self.assertEqual(len(actual_pixels), SAMPLE_NUM_PIXELS)
 
     def test_returns_correct_number_of_rows(self):
-        actual_pixels, rows, cols = pymnist.mnist_images(self.sample_fname,
+        actual_pixels, rows, cols = mnist.mnist_images(self.sample_fname,
                                                          use_numpy=False)
         self.assertEqual(rows, SAMPLE_IMAGE_ROWS)
 
     def test_returns_correct_number_of_cols(self):
-        actual_pixels, rows, cols = pymnist.mnist_images(self.sample_fname,
+        actual_pixels, rows, cols = mnist.mnist_images(self.sample_fname,
                                                          use_numpy=False)
         self.assertEqual(cols, SAMPLE_IMAGE_COLS)
 
     def test_no_fname_calls_download(self):
-        with mock.patch('pymnist.main.download_mnist_file',
+        with mock.patch('mnist.main.download_mnist_file',
                         return_value=self.sample_fname) as download_mnist_file:
-            pymnist.main.mnist_images()
+            mnist.main.mnist_images()
             download_mnist_file.assert_called_once_with(test=False)
 
     def test_no_fname_calls_download_for_test(self):
-        with mock.patch('pymnist.main.download_mnist_file', return_value=self.sample_fname) as download_mnist_file:
-            pymnist.mnist_images(test=True)
+        with mock.patch('mnist.main.download_mnist_file', return_value=self.sample_fname) as download_mnist_file:
+            mnist.mnist_images(test=True)
             download_mnist_file.assert_called_once_with(test=True)
 
     def test_passing_file_does_not_remove_file(self):
         with mock.patch('os.remove') as os_remove:
-            pymnist.mnist_images(self.sample_fname)
+            mnist.mnist_images(self.sample_fname)
         self.assertFalse(os_remove.called)
 
     def test_no_fname_removes_downloaded_file_by_default(self):
-        with mock.patch('pymnist.main.download_mnist_file', return_value=self.sample_fname):
+        with mock.patch('mnist.main.download_mnist_file', return_value=self.sample_fname):
             with mock.patch('os.remove') as os_remove:
-                pymnist.main.mnist_images()
+                mnist.main.mnist_images()
         os_remove.assert_called_once_with(self.sample_fname)
 
     def xtest_no_fname_does_not_remove_file(self):
-        with mock.patch('pymnist.main.download_mnist_file', self.sample_fname):
+        with mock.patch('mnist.main.download_mnist_file', self.sample_fname):
             with mock.patch('os.remove') as os_remove:
-                pymnist.mnist_images(delete_tempfile=False)
+                mnist.mnist_images(delete_tempfile=False)
         self.assertFalse(os_remove.called)

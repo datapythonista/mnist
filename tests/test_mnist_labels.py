@@ -11,7 +11,7 @@ try:
 except ImportError:
     import mock  # py2
 sys.path.append('..')
-import pymnist
+import mnist
 
 
 SAMPLE_LABELS = (5, 0, 9, 1)
@@ -23,7 +23,7 @@ class TestMnistLabels(unittest.TestCase):
     types, and make the right calls."""
 
     def setUp(self):
-        self.sample_fname = tempfile.mktemp(prefix='test_pymnist_')
+        self.sample_fname = tempfile.mktemp(prefix='test_mnist_')
         with gzip.open(self.sample_fname, 'wb') as f:
             f.write(SAMPLE_DATA)
 
@@ -37,43 +37,43 @@ class TestMnistLabels(unittest.TestCase):
                 raise
 
     def test_passing_file_returns_correct_labels(self):
-        actual_labels = tuple(pymnist.mnist_labels(self.sample_fname))
+        actual_labels = tuple(mnist.mnist_labels(self.sample_fname))
         self.assertEqual(actual_labels, SAMPLE_LABELS)
 
     def test_returns_numpy_array_by_default(self):
         import numpy as np
-        actual_labels = pymnist.mnist_labels(self.sample_fname)
+        actual_labels = mnist.mnist_labels(self.sample_fname)
         self.assertIsInstance(actual_labels, np.ndarray)
 
     def test_returns_python_array(self):
-        actual_labels = pymnist.mnist_labels(self.sample_fname,
+        actual_labels = mnist.mnist_labels(self.sample_fname,
                                              use_numpy=False)
         self.assertIsInstance(actual_labels, array.array)
 
     def test_no_fname_calls_download(self):
-        with mock.patch('pymnist.main.download_mnist_file',
+        with mock.patch('mnist.main.download_mnist_file',
                         return_value=self.sample_fname) as download_mnist_file:
-            pymnist.main.mnist_labels()
+            mnist.main.mnist_labels()
             download_mnist_file.assert_called_once_with(labels=True, test=False)
 
     def test_no_fname_calls_download_for_test(self):
-        with mock.patch('pymnist.main.download_mnist_file', return_value=self.sample_fname) as download_mnist_file:
-            pymnist.mnist_labels(test=True)
+        with mock.patch('mnist.main.download_mnist_file', return_value=self.sample_fname) as download_mnist_file:
+            mnist.mnist_labels(test=True)
             download_mnist_file.assert_called_once_with(labels=True, test=True)
 
     def test_passing_file_does_not_remove_file(self):
         with mock.patch('os.remove') as os_remove:
-            pymnist.mnist_labels(self.sample_fname)
+            mnist.mnist_labels(self.sample_fname)
         self.assertFalse(os_remove.called)
 
     def test_no_fname_removes_downloaded_file_by_default(self):
-        with mock.patch('pymnist.main.download_mnist_file', return_value=self.sample_fname):
+        with mock.patch('mnist.main.download_mnist_file', return_value=self.sample_fname):
             with mock.patch('os.remove') as os_remove:
-                pymnist.main.mnist_labels()
+                mnist.main.mnist_labels()
         os_remove.assert_called_once_with(self.sample_fname)
 
     def xtest_no_fname_does_not_remove_file(self):
-        with mock.patch('pymnist.main.download_mnist_file', self.sample_fname):
+        with mock.patch('mnist.main.download_mnist_file', self.sample_fname):
             with mock.patch('os.remove') as os_remove:
-                pymnist.mnist_labels(delete_tempfile=False)
+                mnist.mnist_labels(delete_tempfile=False)
         self.assertFalse(os_remove.called)

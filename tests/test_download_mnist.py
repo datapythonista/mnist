@@ -5,7 +5,7 @@ import tempfile
 import gzip
 import unittest
 sys.path.append('..')
-import pymnist
+import mnist
 
 
 TRAIN_SAMPLES = 60000
@@ -25,7 +25,7 @@ class TestDownloadMNIST(): #unittest.TestCase):
 
     def tearDown(self):
         fname_pattern = os.path.join(tempfile.gettempdir(),
-                                     'pymnist_*')
+                                     'mnist_*')
         for fname in glob.glob(fname_pattern):
             os.remove(fname)
 
@@ -35,25 +35,25 @@ class TestDownloadMNIST(): #unittest.TestCase):
             return len(f.read())
 
     def test_train_images_has_right_size(self):
-        fname = pymnist.download_mnist_file()
+        fname = mnist.download_mnist_file()
         expected_size = HEADER_IMAGES_SIZE + TRAIN_SAMPLES * IMAGE_SIZE * PIXEL_BYTES
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
 
     def test_test_images_has_right_size(self):
-        fname = pymnist.download_mnist_file(test=True)
+        fname = mnist.download_mnist_file(test=True)
         expected_size = HEADER_IMAGES_SIZE + TEST_SAMPLES * IMAGE_SIZE * PIXEL_BYTES
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
 
     def test_train_labels_has_right_size(self):
-        fname = pymnist.download_mnist_file(labels=True)
+        fname = mnist.download_mnist_file(labels=True)
         expected_size = HEADER_LABELS_SIZE + TRAIN_SAMPLES * LABEL_BYTES
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
 
     def test_test_labels_has_right_size(self):
-        fname = pymnist.download_mnist_file(labels=True, test=True)
+        fname = mnist.download_mnist_file(labels=True, test=True)
         expected_size = HEADER_LABELS_SIZE + TEST_SAMPLES * LABEL_BYTES
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
