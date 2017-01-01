@@ -18,20 +18,20 @@ efforts on preprocessing and formatting.
 There are four files available, which contain separately train and test,
 and images and labels.
 
-Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges
+Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges.
 
-mnist makes it easier to download and convert to Python objects the
-information contained in the MNIST files, which use a custom format.
+mnist makes it easier to download and parse MNIST files.
 '''
 
 setup(name='mnist',
       description='Python utilities to download and parse the MNIST dataset',
       long_description=LONG_DESCRIPTION,
       url='https://github.com/datapythonista/mnist',
-      version='0.1',
+      version='0.2',
       author='Marc Garcia',
       author_email='garcia.marc@gmail.com',
       license='BSD',
+      install_requires=['numpy'],
       extras_require={':python_version=="2.7"': ['mock']},
       classifiers=['Development Status :: 4 - Beta',
                    'Environment :: Console',
