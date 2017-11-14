@@ -18,7 +18,7 @@ methods on real-world data while spending minimal efforts on preprocessing and f
 
 There are four files available, which contain separately train and test, and images and labels.
 
-Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges.
+Thanks to Yann LeCun, Corinna Cortes and Christopher J.C. Burges.
 
 ## Usage
 
