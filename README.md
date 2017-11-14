@@ -54,7 +54,7 @@ the functions again, is much faster and doesn't hit the server.
 
 Images are returned as a 3D numpy array (samples * rows * columns). To train
 machine learning models, usually a 2D array is used (samples * features). To
-get it, simply use:
+get it, simply use  :
 
 ```
 import mnist
