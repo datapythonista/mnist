@@ -52,6 +52,11 @@ test_labels = mnist.test_labels()
 The dataset is downloaded and cached in your temporary directory, so, calling
 the functions again, is much faster and doesn't hit the server.
 
+Hi Marc!!!
+
+Goodbye Marc!!
+
+
 Images are returned as a 3D numpy array (samples * rows * columns). To train
 machine learning models, usually a 2D array is used (samples * features). To
 get it, simply use:
