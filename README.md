@@ -1,5 +1,5 @@
 # mnist: Python utilities to download and parse the MNIST dataset
-
+HI REBASE ATTEMPT 3
 ## MNIST dataset
 
 The MNIST database is available at http://yann.lecun.com/exdb/mnist/
@@ -16,7 +16,7 @@ The digits have been size-normalized and centered in a fixed-size image.
 It is a good database for people who want to try learning techniques and pattern recognition
 methods on real-world data while spending minimal efforts on preprocessing and formatting.
 
-There are four files available, which contain separately train and test, and images and labels.
+There are four files available, which contain separately train images, test images, train labels and test labels.
 
 Thanks to Yann LeCun, Corinna Cortes, Christopher J.C. Burges.
 
