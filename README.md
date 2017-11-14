@@ -1,5 +1,5 @@
 # mnist: Python utilities to download and parse the MNIST dataset
-HELLO
+HI REBASE ATTEMPT 3
 ## MNIST dataset
 
 The MNIST database is available at http://yann.lecun.com/exdb/mnist/
