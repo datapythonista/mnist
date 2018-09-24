@@ -63,4 +63,18 @@ train_images = mnist.train_images()
 x = images.reshape((images.shape[0], images.shape[1] * images.shape[2]))
 ```
 
+Both the url where the files can be found, and the temporary directory where
+they will be cached locally can be modified in the next way:
+```
+import mnist
+
+mnist.datasets_url = 'http://url-to-the/datasets'
+
+# temporary_dir is a function, so it can be dinamically created
+# like Python stdlib `tempfile.gettempdir` (which is the default)
+mnist.temporary_dir = lambda: '/tmp/mnist'
+
+train_images = mnist.train_images()
+```
+
 It supports Python 2.7 and Python >= 3.5.
