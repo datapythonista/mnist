@@ -48,14 +48,16 @@ class TestDownloadMNIST(unittest.TestCase):
     def test_train_images_has_right_size(self):
         fname = 'train-images-idx3-ubyte.gz'
         fname = mnist.download_file(fname, force=True)
-        expected_size = HEADER_IMAGES_SIZE + TRAIN_SAMPLES * IMAGE_SIZE * PIXEL_BYTES
+        expected_size = (HEADER_IMAGES_SIZE
+                         + TRAIN_SAMPLES * IMAGE_SIZE * PIXEL_BYTES)
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
 
     def test_test_images_has_right_size(self):
         fname = 't10k-images-idx3-ubyte.gz'
         fname = mnist.download_file(fname, force=True)
-        expected_size = HEADER_IMAGES_SIZE + TEST_SAMPLES * IMAGE_SIZE * PIXEL_BYTES
+        expected_size = (HEADER_IMAGES_SIZE
+                         + TEST_SAMPLES * IMAGE_SIZE * PIXEL_BYTES)
         actual_size = self._gzip_file_size(fname)
         self.assertEqual(expected_size, actual_size)
 
@@ -86,10 +88,12 @@ class TestDownloadMNIST(unittest.TestCase):
         self.assertFalse(urlretrieve.called)
 
     @mock.patch('mnist.urlretrieve')
-    def test_file_is_downloaded_when_exists_and_force_is_true(self, urlretrieve):
+    def test_file_is_downloaded_when_exists_and_force_is_true(self,
+                                                              urlretrieve):
         mnist.download_file('test', force=True)
         urlretrieve.assert_called_once_with(mnist.datasets_url + 'test',
-                                            os.path.join(tempfile.gettempdir(), 'test'))
+                                            os.path.join(tempfile.gettempdir(),
+                                                         'test'))
 
     @mock.patch('mnist.urlretrieve')
     def test_datasets_url_is_used(self, urlretrieve):
