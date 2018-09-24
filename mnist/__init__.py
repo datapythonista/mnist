@@ -16,6 +16,9 @@ except ImportError:
 import numpy
 
 
+__version__ = '0.2.2'
+
+
 # `datasets_url` and `temporary_dir` can be set by the user using:
 # >>> mnist.datasets_url = 'http://my.mnist.url'
 # >>> mnist.temporary_dir = lambda: '/tmp/mnist'
