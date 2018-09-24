@@ -16,8 +16,11 @@ except ImportError:
 import numpy as np
 
 
-# the url can be changed by the users of the library (not a constant)
+# `datasets_url` and `temporary_dir` can be set by the user using:
+# >>> mnist.datasets_url = 'http://my.mnist.url'
+# >>> mnist.temporary_dir = lambda: '/tmp/mnist'
 datasets_url = 'http://yann.lecun.com/exdb/mnist/'
+temporary_dir = tempfile.gettempdir
 
 
 class IdxDecodeError(ValueError):
@@ -45,8 +48,7 @@ def download_file(fname, target_dir=None, force=False):
     fname : str
         Full path of the downloaded file
     """
-    if not target_dir:
-        target_dir = tempfile.gettempdir()
+    target_dir = target_dir or temporary_dir()
     target_fname = os.path.join(target_dir, fname)
 
     if force or not os.path.isfile(target_fname):

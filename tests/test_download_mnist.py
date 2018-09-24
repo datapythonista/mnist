@@ -93,8 +93,20 @@ class TestDownloadMNIST(unittest.TestCase):
 
     @mock.patch('mnist.urlretrieve')
     def test_datasets_url_is_used(self, urlretrieve):
+        original_url = mnist.datasets_url
         mnist.datasets_url = 'http://aaa.com/'
         mnist.download_file('mnist_datasets_url.gz')
         fname = os.path.join(tempfile.gettempdir(), 'mnist_datasets_url.gz')
-        urlretrieve.assert_called_once_with('http://aaa.com/mnist_datasets_url.gz',
-                                            fname)
+        urlretrieve.assert_called_once_with(
+            'http://aaa.com/mnist_datasets_url.gz', fname)
+        mnist.datasets_url = original_url
+
+    @mock.patch('mnist.urlretrieve')
+    def test_temporary_dir_is_used(self, urlretrieve):
+        original_temp_dir = mnist.temporary_dir
+        mnist.temporary_dir = lambda: '/another/tmp/dir/'
+        fname = mnist.download_file('test')
+        urlretrieve.assert_called_once_with(mnist.datasets_url + 'test',
+                                            '/another/tmp/dir/test')
+        self.assertEqual(fname, '/another/tmp/dir/test')
+        mnist.temporary_dir = original_temp_dir
