@@ -11,7 +11,7 @@ jobs:
   - script: python -m pip install flake8 && flake8 .
     displayName: 'Validating PEP-8'
 
-- job: 'Test Linux'
+- job: 'Test_Linux'
 
   pool:
     vmImage: 'Ubuntu 16.04'
@@ -38,4 +38,4 @@ jobs:
     displayName: 'Install dependencies'
 
   - script: python -m unittest discover tests
-    displayName: 'Run unittest tests'
+    displayName: 'Run tests'
