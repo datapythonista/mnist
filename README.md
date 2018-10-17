@@ -27,7 +27,7 @@ mnist makes it easier to download and parse MNIST files.
 To automatically download the train files, and display the first image in the
 dataset, you can simply use:
 
-```
+```python
 import mnist
 import scipy.misc
 
@@ -39,7 +39,7 @@ scipy.misc.toimage(scipy.misc.imresize(images[0,:,:] * -1 + 256, 10.))
 
 Test files and labels can be downloaded in a similar way:
 
-```
+```python
 import mnist
 
 train_images = mnist.train_images()
@@ -56,7 +56,7 @@ Images are returned as a 3D numpy array (samples * rows * columns). To train
 machine learning models, usually a 2D array is used (samples * features). To
 get it, simply use:
 
-```
+```python
 import mnist
 
 train_images = mnist.train_images()
@@ -65,7 +65,7 @@ x = images.reshape((images.shape[0], images.shape[1] * images.shape[2]))
 
 Both the url where the files can be found, and the temporary directory where
 they will be cached locally can be modified in the next way:
-```
+```python
 import mnist
 
 mnist.datasets_url = 'http://url-to-the/datasets'
