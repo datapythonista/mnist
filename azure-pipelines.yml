@@ -25,7 +25,7 @@ jobs:
 
   - script: python -m pip install flake8 && flake8 .
     displayName: 'Validating PEP-8'
-    condition: eq(variables.python.version, '3.7')
+    condition: eq($(python.version), '3.7')
 
   - script: python -m pip install --upgrade pip && pip install -e .
     displayName: 'Install dependencies'
@@ -37,4 +37,4 @@ jobs:
         python -m pip install coverage && coverage run --source=mnist/ mnist/__init__.py
         python -m pip install codecov && codecov
     displayName: 'Coverage'
-    condition: eq(variables.python.version, '3.7')
+    condition: eq($(python.version), '3.7')
