@@ -2,6 +2,8 @@
 
 ## MNIST dataset
 
+**IMPORTANT: This repository has been moved to https://gitlab.com/datapythonista/mnist**
+
 The MNIST database is available at http://yann.lecun.com/exdb/mnist/
 
 The MNIST database is a dataset of handwritten digits. It has 60,000 training
