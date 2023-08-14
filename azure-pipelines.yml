@@ -23,6 +23,9 @@ jobs:
       versionSpec: '$(python.version)'
       architecture: 'x64'
 
+  - script: cat /proc/cpuinfo
+    displayName: 'Showing CPUs'
+
   - script: python -m pip install flake8 && flake8 .
     displayName: 'Validating PEP-8'
 
